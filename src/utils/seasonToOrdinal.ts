@@ -1,0 +1,58 @@
+const ORDINALS = [
+  'Zero',
+  'First',
+  'Second',
+  'Third',
+  'Fourth',
+  'Fifth',
+  'Sixth',
+  'Seventh',
+  'Eight',
+  'Ninth',
+  'Tenth',
+  'Eleventh',
+  'Twelfth',
+  'Thirteenth',
+  'Fourteenth',
+  'Fifteenth',
+  'Sixteenth',
+  'Seventeenth',
+  'Eighteenth',
+  'Nineteenth',
+  'Twentieth',
+  'Twenty-First',
+  'Twenty-Second',
+  'Twenty-Third',
+  'Twenty-Fourth',
+  'Twenty-Fifth',
+  'Twenty-Sixth',
+  'Twenty-Seventh',
+  'Twenty-Eight',
+  'Twenty-Ninth',
+  'Thirtieth',
+  'Thirty-First',
+  'Thirty-Second',
+  'Thirty-Third',
+  'Thirty-Fourth',
+  'Thirty-Fifth',
+  'Thirty-Sixth',
+  'Thirty-Seventh',
+  'Thirty-Eight',
+  'Thirty-Ninth',
+  'Fortieth',
+  // 'Fiftieth',
+  // 'Sixtieth',
+  // 'Seventieth',
+  // 'Eightieth',
+  // 'Ninetieth',
+  // 'Hundredth',
+  // 'Thousandth',
+];
+
+export function seasonToOrdinal(season: string): string {
+  const seasonNumber = parseInt(season, 10);
+  if (ORDINALS[seasonNumber]) {
+    return ORDINALS[seasonNumber];
+  }
+  throw new Error('Missing Ordinal for ' + season);
+}
