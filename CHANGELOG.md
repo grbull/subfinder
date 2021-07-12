@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/grbull/subfinder/compare/v1.0.2...v1.0.3) (2021-07-12)
+
+
+### Bug Fixes
+
+* picks incorrect episode number ([ba796ce](https://github.com/grbull/subfinder/commit/ba796cef4a3fb69d4263d7e5e307842a395d6b4a)), closes [#6](https://github.com/grbull/subfinder/issues/6)
+
 ### [1.0.2](https://github.com/grbull/subfinder/compare/v1.0.1...v1.0.2) (2021-07-12)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "subfinder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A CLI app for downloading subtitles.",
   "main": "dist/index.js",
   "scripts": {
