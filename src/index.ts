@@ -24,7 +24,7 @@ export async function subFinder(file: string, dir: string): Promise<void> {
 
   const release = parse(file);
 
-  let searchQuery = release.name;
+  const searchQuery = release.name;
   let searchQueryMatch = release.name;
 
   if (release.type === 'Movie') {
@@ -33,8 +33,7 @@ export async function subFinder(file: string, dir: string): Promise<void> {
   }
   if (release.type === 'Show') {
     const { name, season } = release;
-    searchQuery = `${name} - ${seasonToOrdinal(season)} Season`;
-    searchQueryMatch = searchQuery;
+    searchQueryMatch = `${name} - ${seasonToOrdinal(season)} Season`;
   }
 
   const searchPage = await subSceneApi.search(searchQuery);
