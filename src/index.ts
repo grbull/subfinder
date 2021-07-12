@@ -5,6 +5,7 @@ import path from 'path';
 import { parse } from 'whats-the-release';
 
 import { bestMatch } from './utils/bestMatch';
+import { filterResultsByEpisode } from './utils/filterResultsByEpisode';
 import {
   parseSearchPage,
   parseSubtitleDownloadLink,
@@ -43,7 +44,13 @@ export async function subFinder(file: string, dir: string): Promise<void> {
   console.log('Selected release:', searchResult.title);
 
   const subtitlesPage = await subSceneApi.getPage(searchResult.link);
-  const parsedSubtitlesPage = parseSubtitlesPage(subtitlesPage);
+  let parsedSubtitlesPage = parseSubtitlesPage(subtitlesPage);
+  if (release.type === 'Show') {
+    parsedSubtitlesPage = filterResultsByEpisode(
+      parsedSubtitlesPage,
+      release.episode
+    );
+  }
   const subtitlesResult = bestMatch(parsedSubtitlesPage, file);
 
   console.log('Selected subtitles:', subtitlesResult.title);
