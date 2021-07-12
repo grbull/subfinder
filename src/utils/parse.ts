@@ -55,11 +55,9 @@ export function parseSubtitleDownloadLink(data: string): string {
   const dom = new JSDOM(data);
   const { document } = dom.window;
 
-  const resultElement = document.querySelector(
-    'div.download >  a#downloadButton.button.positive'
-  );
-
-  const downloadUrl = resultElement?.getAttribute('href');
+  const downloadUrl = document
+    .querySelector('div.download >  a#downloadButton.button')
+    ?.getAttribute('href');
 
   if (!downloadUrl) {
     throw new Error('Unable to parse download url.');
