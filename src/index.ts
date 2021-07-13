@@ -1,4 +1,5 @@
 import { program } from 'commander';
+import path from 'path';
 
 import { subfinder } from './subfinder';
 
@@ -8,9 +9,9 @@ const VERSION = require('../package.json').version;
 program
   .version(VERSION)
   .argument('<file>', 'file to download subtitles for')
-  .action(async (filename: string) => {
+  .action(async (file: string) => {
     try {
-      await subfinder(filename, process.cwd());
+      await subfinder(path.join(process.cwd(), file));
     } catch (error) {
       console.error(error);
       process.exit(1);

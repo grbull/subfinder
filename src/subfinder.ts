@@ -15,15 +15,15 @@ import { seasonToOrdinal } from './utils/seasonToOrdinal';
 import { subSceneApi } from './utils/subSceneApi';
 import { unzipSubtitles } from './utils/unpackSubtitles';
 
-export async function subfinder(file: string, dir: string): Promise<void> {
-  if (!fs.existsSync(path.join(dir, file))) {
+export async function subfinder(file: string): Promise<void> {
+  if (!fs.existsSync(file)) {
     throw new Error('Unable to locate file.');
   }
 
-  // I want to display version info
-  console.log('Subfinder');
+  const filename = path.basename(file);
+  const fileDir = path.dirname(file);
 
-  const release = parse(file);
+  const release = parse(filename);
 
   const searchQuery = release.name;
   let searchQueryMatch = release.name;
@@ -51,7 +51,7 @@ export async function subfinder(file: string, dir: string): Promise<void> {
       release.episode
     );
   }
-  const subtitlesResult = bestMatch(parsedSubtitlesPage, file);
+  const subtitlesResult = bestMatch(parsedSubtitlesPage, filename);
 
   console.log('Selected subtitles:', subtitlesResult.title);
 
@@ -61,8 +61,8 @@ export async function subfinder(file: string, dir: string): Promise<void> {
   const zipFile = await subSceneApi.getZipFile(downloadUrl);
 
   const destFile = release.container
-    ? path.join(dir, `${file.slice(0, file.length - 4)}.srt`)
-    : path.join(dir, file + '.srt');
+    ? path.join(fileDir, `${filename.slice(0, filename.length - 4)}.srt`)
+    : path.join(fileDir, filename + '.srt');
 
   unzipSubtitles(zipFile, destFile);
 
