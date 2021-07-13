@@ -12,7 +12,7 @@
   </a>
 </p>
 
-A CLI app for downloading subtitles.
+A CLI app for downloading subtitles. This was thrown together very quickly, there are no tests. It was a quick project that I'll improve when I have time, and will fix bugs as I encounter them.
 
 ## 🚀 Get started
 
