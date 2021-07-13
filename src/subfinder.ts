@@ -41,7 +41,7 @@ export async function subfinder(file: string): Promise<void> {
   const parsedSearchPage = parseSearchPage(searchPage);
   const searchResult = bestMatch(parsedSearchPage, searchQueryMatch);
 
-  console.log('Selected release:', searchResult.title);
+  console.log('Selected search result:', searchResult.title);
 
   const subtitlesPage = await subSceneApi.getPage(searchResult.link);
   let parsedSubtitlesPage = parseSubtitlesPage(subtitlesPage);
@@ -53,7 +53,7 @@ export async function subfinder(file: string): Promise<void> {
   }
   const subtitlesResult = bestMatch(parsedSubtitlesPage, filename);
 
-  console.log('Selected subtitles:', subtitlesResult.title);
+  console.log('Selected subtitle release:', subtitlesResult.title);
 
   const downloadPage = await subSceneApi.getPage(subtitlesResult.link);
   const downloadUrl = parseSubtitleDownloadLink(downloadPage);
