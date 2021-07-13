@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/grbull/subfinder/compare/v1.0.3...v1.1.0) (2021-07-13)
+
+
+### Features
+
+* commander ([b8d2fad](https://github.com/grbull/subfinder/commit/b8d2fad37cceba5c75a9e3063563e265add691cc))
+* print version when run ([1400358](https://github.com/grbull/subfinder/commit/1400358275e387aa38c94a1e9726802e871e09b8))
+
+
+### Bug Fixes
+
+* can't handle relative files ([b8d184f](https://github.com/grbull/subfinder/commit/b8d184fba80dc6b42d03055f89ae3a463f997d06))
+
 ### [1.0.3](https://github.com/grbull/subfinder/compare/v1.0.2...v1.0.3) (2021-07-12)
 
 
