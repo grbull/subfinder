@@ -22,6 +22,7 @@
   "dependencies": {
     "adm-zip": "^0.5.5",
     "axios": "^0.21.1",
+    "commander": "^8.0.0",
     "jsdom": "^16.6.0",
     "string-similarity": "^4.0.4",
     "whats-the-release": "^1.0.3"
