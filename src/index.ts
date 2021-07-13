@@ -11,6 +11,7 @@ program
   .argument('<file>', 'file to download subtitles for')
   .action(async (file: string) => {
     try {
+      console.log(`subfinder v${VERSION}`);
       await subfinder(path.join(process.cwd(), file));
     } catch (error) {
       console.error(error);
