@@ -17,7 +17,10 @@ export function parseSearchPage(data: string): ParsedResult[] {
     const link = el.getAttribute('href');
 
     if (title && link) {
-      results.push({ title, link });
+      // Avoid duplicates
+      if (!results.find((result) => result.link === link)) {
+        results.push({ title, link });
+      }
     }
   }
 
@@ -44,7 +47,10 @@ export function parseSubtitlesPage(
     const lang = spans[0].innerHTML.trim();
 
     if (title && link && lang === language) {
-      results.push({ title, link });
+      // Avoid duplicates
+      if (!results.find((result) => result.link === link)) {
+        results.push({ title, link });
+      }
     }
   }
 
