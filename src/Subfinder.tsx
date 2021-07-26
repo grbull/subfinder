@@ -1,11 +1,13 @@
+import { useApp, useInput } from 'ink';
+import path from 'path';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { parse } from 'whats-the-release';
+import { WtrResult } from 'whats-the-release';
 
+import { ErrorMessage } from './components/ErrorMessage';
 import { InfoBar } from './components/InfoBar';
 import { SelectOption } from './components/SelectOption';
 import { StatusBar } from './components/StatusBar';
 import { TitleBar } from './components/TitleBar';
-import { useFileInfo } from './hooks/useFileInfo';
 import { Option } from './Option';
 import { seasonToOrdinal } from './utils/seasonToOrdinal';
 import { subscene } from './utils/subscene';
@@ -13,22 +15,30 @@ import { subscene } from './utils/subscene';
 interface Props {
   filePath: string;
   isInteractive?: boolean;
+  release: WtrResult;
   version: string;
 }
 
 export function Subfinder({
   filePath,
   isInteractive = false,
+  release,
   version,
 }: Props): ReactElement {
+  const [error, setError] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState('Parsing filename...');
   const [mediaOptions, setMediaOptions] = useState<Option[] | undefined>(
     undefined
   );
   const [subOptions, setSubOptions] = useState<Option[] | undefined>(undefined);
 
-  const file = useFileInfo(filePath);
-  const release = parse(file.name);
+  const { exit } = useApp();
+
+  useInput((input) => {
+    if (input === 'q') {
+      exit();
+    }
+  });
 
   async function selectRelease(media: Option): Promise<void> {
     setSubOptions(undefined);
@@ -39,9 +49,14 @@ export function Subfinder({
       ? filePath.slice(0, filePath.length - 4) + '.srt'
       : filePath;
 
-    await subscene.download(media, destFile);
+    try {
+      await subscene.download(media, destFile);
+    } catch {
+      setError('Error downloading subtitles');
+    }
 
     setStatus('Complete.');
+    exit();
   }
 
   // when user chooses a search result, eg movie or series
@@ -51,13 +66,18 @@ export function Subfinder({
     }
 
     setStatus('Fetching subtitle releases for selected media...');
-    const subtitleOptions = await subscene.getSubtitleOptions(media, release);
 
-    if (isInteractive) {
-      setSubOptions(subtitleOptions);
-      setStatus('> Please choose the correct subtitle for your release.');
-    } else {
-      await selectRelease(subtitleOptions[0]);
+    try {
+      const subtitleOptions = await subscene.getSubtitleOptions(media, release);
+
+      if (isInteractive) {
+        setSubOptions(subtitleOptions);
+        setStatus('> Please choose the correct subtitle for your release.');
+      } else {
+        await selectRelease(subtitleOptions[0]);
+      }
+    } catch {
+      setError('Error fetching subtitle options');
     }
   }
 
@@ -77,21 +97,25 @@ export function Subfinder({
 
       setStatus('Searching subscene...');
 
-      const mediaOptions = await subscene.getMediaOptions(
-        searchQuery,
-        searchQueryMatch
-      );
+      try {
+        const mediaOptions = await subscene.getMediaOptions(
+          searchQuery,
+          searchQueryMatch
+        );
 
-      if (isInteractive) {
-        setMediaOptions(mediaOptions);
-        if (release.type === 'Movie') {
-          setStatus('> Please choose the correct movie.');
+        if (isInteractive) {
+          setMediaOptions(mediaOptions);
+          if (release.type === 'Movie') {
+            setStatus('> Please choose the correct movie.');
+          }
+          if (release.type === 'Show') {
+            setStatus('> Please choose the correct show and season.');
+          }
+        } else {
+          await selectMedia(mediaOptions[0]);
         }
-        if (release.type === 'Show') {
-          setStatus('> Please choose the correct show and season.');
-        }
-      } else {
-        await selectMedia(mediaOptions[0]);
+      } catch {
+        setError('Error fetching media options');
       }
     }
 
@@ -99,10 +123,26 @@ export function Subfinder({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (error) {
+    return (
+      <>
+        <TitleBar version={version} />
+        <InfoBar
+          fileName={path.basename(filePath)}
+          isInteractive={isInteractive}
+        />
+        <ErrorMessage error={error} />
+      </>
+    );
+  }
+
   return (
     <>
       <TitleBar version={version} />
-      <InfoBar fileName={file.name} isInteractive={isInteractive} />
+      <InfoBar
+        fileName={path.basename(filePath)}
+        isInteractive={isInteractive}
+      />
       <StatusBar status={status} />
       {mediaOptions && (
         <SelectOption onSelect={selectMedia} options={mediaOptions} />
