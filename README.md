@@ -16,26 +16,16 @@ A CLI app for downloading subtitles. This was thrown together very quickly, ther
 
 ## 🚀 Get started
 
+### Install
+
 ```bash
 # Install
 $ npm i -g subfinder
-
-# Example usage
-$ cd ~/Videos
-
-$ ls
-A.Tv.Show.S03E08.1080p.x265-moo.mkv
-
-$ subfinder A.Tv.Show.S03E08.1080p.x265-moo.mkv
-subfinder v1.1.0
-Selected search result: A Tv Show - Third Season
-Selected subtitle release: A.Tv.Show.S03E08.1080p.X265-moo
-Complete.
-
-$ ls
-A.Tv.Show.S03E08.1080p.x265-moo.mkv
-A.Tv.Show.S03E08.1080p.x265-moo.srt
 ```
+
+### Example
+
+<img alt="Screenshot 01" src="./docs/demo.gif" width="700px" />
 
 ## 📖 Changelog
 
