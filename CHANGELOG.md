@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/grbull/subfinder/compare/v1.1.2...v1.2.0) (2021-07-26)
+
+
+### Features
+
+* basic error handling, quits on q ([deaf175](https://github.com/grbull/subfinder/commit/deaf17565d2711eb6e91d41ff82f55d3e57e8622))
+* interactive mode ([5c14b80](https://github.com/grbull/subfinder/commit/5c14b80866e6fa805a80ed2a7af26d1d059916bb))
+
 ### [1.1.2](https://github.com/grbull/subfinder/compare/v1.1.1...v1.1.2) (2021-07-13)
 
 ### [1.1.1](https://github.com/grbull/subfinder/compare/v1.1.0...v1.1.1) (2021-07-13)
