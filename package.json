@@ -28,7 +28,7 @@
     "jsdom": "^16.6.0",
     "react": "^16.14.0",
     "string-similarity": "^4.0.4",
-    "whats-the-release": "^1.0.3"
+    "whats-the-release": "^1.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
