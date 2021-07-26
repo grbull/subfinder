@@ -16,7 +16,7 @@ export function InfoBar({ fileName, isInteractive }: Props): ReactElement {
       <Spacer />
       <Text>Mode: </Text>
       <Text color={isInteractive ? 'yellow' : 'green'} dimColor>
-        {isInteractive ? 'Interactive' : 'auto'}
+        {isInteractive ? 'interactive' : 'auto'}
       </Text>
     </Box>
   );
