@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/grbull/subfinder/compare/v1.2.0...v1.2.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* inconsistent casing ([63fcd70](https://github.com/grbull/subfinder/commit/63fcd706dcaaacb4ec277a7f2e423d9b24ffafb0))
+
 ## [1.2.0](https://github.com/grbull/subfinder/compare/v1.1.2...v1.2.0) (2021-07-26)
 
 
