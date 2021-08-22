@@ -12,12 +12,6 @@ import { Subfinder } from './Subfinder';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VERSION = require('../package.json').version;
 
-// Resolve ~/ paths
-// Description to subs
-// hard code popular languages
-// handle no options
-// fix ability to select in-existent option
-
 interface CliOptions {
   interactive?: boolean;
 }
