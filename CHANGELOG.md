@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/grbull/subfinder/compare/v1.2.1...v1.3.0) (2021-08-22)
+
+
+### Features
+
+* hard coded ordinals to 100 ([41fdfc6](https://github.com/grbull/subfinder/commit/41fdfc6144f951ee5c634d1d7ad9648eccc1e131))
+
 ### [1.2.1](https://github.com/grbull/subfinder/compare/v1.2.0...v1.2.1) (2021-07-26)
 
 
