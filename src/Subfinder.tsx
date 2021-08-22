@@ -9,7 +9,6 @@ import { SelectOption } from './components/SelectOption';
 import { StatusBar } from './components/StatusBar';
 import { TitleBar } from './components/TitleBar';
 import { Option } from './Option';
-import { seasonToOrdinal } from './utils/seasonToOrdinal';
 import { subscene } from './utils/subscene';
 
 interface Props {
@@ -26,7 +25,7 @@ export function Subfinder({
   version,
 }: Props): ReactElement {
   const [error, setError] = useState<string | undefined>(undefined);
-  const [status, setStatus] = useState('Parsing filename...');
+  const [status, setStatus] = useState('...');
   const [mediaOptions, setMediaOptions] = useState<Option[] | undefined>(
     undefined
   );
@@ -83,25 +82,10 @@ export function Subfinder({
 
   useEffect(() => {
     async function subfinder(): Promise<void> {
-      const searchQuery = release.name;
-      let searchQueryMatch = release.name;
-
-      if (release.type === 'Movie') {
-        const { name, year } = release;
-        searchQueryMatch = year ? `${name} (${year})` : name;
-      }
-      if (release.type === 'Show') {
-        const { name, season } = release;
-        searchQueryMatch = `${name} - ${seasonToOrdinal(season)} Season`;
-      }
-
       setStatus('Searching subscene...');
 
       try {
-        const mediaOptions = await subscene.getMediaOptions(
-          searchQuery,
-          searchQueryMatch
-        );
+        const mediaOptions = await subscene.getMediaOptions(release);
 
         if (isInteractive) {
           setMediaOptions(mediaOptions);

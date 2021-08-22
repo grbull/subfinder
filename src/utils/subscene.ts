@@ -6,6 +6,7 @@ import { compareTwoStrings } from 'string-similarity';
 import { WtrResult } from 'whats-the-release';
 
 import { Option } from '../Option';
+import { seasonToOrdinal } from './seasonToOrdinal';
 
 const axios = Axios.create({ baseURL: 'https://subscene.com' });
 
@@ -14,25 +15,31 @@ const axios = Axios.create({ baseURL: 'https://subscene.com' });
  * adds ratings by comparing the result string to the match string.#
  * We then refer to them as options.
  *
- * The reason query and match strings may differ is due to subscene formatting.
- * See below.
- *
- * Searching for a film:
- * query: Movie Name
- * match: Movie Name (Year)
- *
- * Searching for a show:
- * query: Show Name
- * match: Show Name (Tenth Season)
- *
- * @param query The query to search for. Eg. "crocodile dundee"
- * @param match The string to rate the options against. Eg. "crocodile dundee (1986)"
+ * @param release the release info provided by whats-the-release
  * @returns media options
  */
-async function getMediaOptions(
-  query: string,
-  match: string
-): Promise<Option[]> {
+async function getMediaOptions(release: WtrResult): Promise<Option[]> {
+  const query = release.name;
+  let match = release.name;
+
+  /**
+   * Searching for a movie:
+   * query: Movie Name
+   * match: Movie Name (Year)
+   *
+   * Searching for a show:
+   * query: Show Name
+   * match: Show Name (Tenth Season)
+   */
+  if (release.type === 'Movie') {
+    const { name, year } = release;
+    match = year ? `${name} (${year})` : name;
+  }
+  if (release.type === 'Show') {
+    const { name, season } = release;
+    match = `${name} - ${seasonToOrdinal(season)} Season`;
+  }
+
   const { data } = await axios.request<string>({
     method: 'POST',
     url: '/subtitles/searchbytitle',
