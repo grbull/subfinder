@@ -29,14 +29,7 @@ function main(relativeFilePath: string, options: CliOptions): void {
   const fileName = path.basename(filePath);
   const release = parse(fileName);
 
-  render(
-    <Subfinder
-      filePath={filePath}
-      isInteractive={options.interactive}
-      release={release}
-      version={VERSION}
-    />
-  );
+  render(<Subfinder filePath={filePath} isInteractive={options.interactive} release={release} version={VERSION} />);
 }
 
 program
