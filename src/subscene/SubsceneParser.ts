@@ -13,7 +13,7 @@ export class SubsceneParser implements ISubsceneParser {
       const title = optionEl.innerHTML;
       const url = optionEl.getAttribute('href');
 
-      if (title && url && url.length > 0) {
+      if (title && url) {
         // Avoiding duplicates
         if (!options.find((option) => option.url === url)) {
           return [...options, { title, url }];
@@ -32,7 +32,7 @@ export class SubsceneParser implements ISubsceneParser {
    */
   public parseMediaSubtitleOptions<T extends Element>(elements: T[]): IOption[] {
     return elements.reduce((options: IOption[], optionEl) => {
-      const url = optionEl.querySelector('a')?.getAttribute('href');
+      const url = (optionEl.querySelector('a') as HTMLAnchorElement).getAttribute('href');
       const spanEl = optionEl.querySelectorAll('span');
       const language = spanEl[0].innerHTML.trim();
       const title = spanEl[1].innerHTML.trim();
