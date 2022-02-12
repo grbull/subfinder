@@ -27,21 +27,18 @@ describe('SubsceneApi', () => {
   describe('fetchPage', () => {
     it('should make an axios request', () => {
       // Arrange
+      const testUrl = '';
       const axios = Axios.create();
       const axiosRequestMock = jest.spyOn(axios, 'request');
       axiosRequestMock.mockImplementation((): Promise<string> => Promise.resolve(''));
       const sut = new SubSceneApi(axios);
-      const testUrl = '';
 
       // Act
       sut.fetchPage(testUrl);
 
       // Assert#
       expect(axiosRequestMock).toHaveBeenCalledTimes(1);
-      expect(axiosRequestMock).toHaveBeenCalledWith({
-        method: 'GET',
-        url: testUrl,
-      });
+      expect(axiosRequestMock).toHaveBeenCalledWith({ method: 'GET', url: testUrl });
     });
   });
 });
