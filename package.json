@@ -64,8 +64,7 @@
     "semi": true,
     "singleQuote": true,
     "tabWidth": 2,
-    "trailingComma": "es5",
-    "printWidth": 120
+    "trailingComma": "es5"
   },
   "eslintConfig": {
     "env": {
@@ -78,14 +77,7 @@
       "gbx/react",
       "gbx/typescript"
     ],
-    "rules": {
-      "max-len": [
-        "error",
-        {
-          "code": 120
-        }
-      ]
-    }
+    "rules": {}
   },
   "jest": {
     "collectCoverage": true,

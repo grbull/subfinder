@@ -1,5 +1,3 @@
-import { IOrdinalConverter } from '../interfaces/IOrdinalConverter';
-
 const ORDINALS = [
   'Zero',
   'First',
@@ -105,18 +103,10 @@ const ORDINALS = [
   // 'Thousandth',
 ];
 
-export class OrdinalConverter implements IOrdinalConverter {
-  /**
-   * Converts a number to a number ordinal. (Eg. 1 => First, 2 => Second)
-   *
-   * @param numberString The number to represent as an ordinal.
-   * @returns Returns the oridinal of the number provided.
-   */
-  public convert(numberString: string): string {
-    const seasonNumber = parseInt(numberString, 10);
-    if (ORDINALS[seasonNumber]) {
-      return ORDINALS[seasonNumber];
-    }
-    throw new Error('Missing Ordinal for ' + numberString);
+export function seasonToOrdinal(season: string): string {
+  const seasonNumber = parseInt(season, 10);
+  if (ORDINALS[seasonNumber]) {
+    return ORDINALS[seasonNumber];
   }
+  throw new Error('Missing Ordinal for ' + season);
 }
