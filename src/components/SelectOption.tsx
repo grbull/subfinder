@@ -1,11 +1,11 @@
 import { Box, Spacer, Text, useInput } from 'ink';
 import React, { ReactElement, useState } from 'react';
 
-import { Option } from '../Option';
+import { IOptionRated } from '../interfaces/IOptionRated';
 
 interface Props {
-  options: Option[];
-  onSelect: (result: Option) => void;
+  options: IOptionRated[];
+  onSelect: (result: IOptionRated) => void;
 }
 
 export function SelectOption({ onSelect, options }: Props): ReactElement {
@@ -68,9 +68,7 @@ export function SelectOption({ onSelect, options }: Props): ReactElement {
       <Box flexDirection="column" height={5} width={80}>
         {options.slice(page * 5, page * 5 + 5).map((result, index) => (
           <Box height={1} key={result.url} width={80}>
-            <Text color={selected === index ? 'green' : 'white'}>
-              {result.title.padEnd(75)}
-            </Text>
+            <Text color={selected === index ? 'green' : 'white'}>{result.title.padEnd(75)}</Text>
             <Spacer />
             <Text color={ratingColor(result.rating)}>{result.rating}%</Text>
           </Box>

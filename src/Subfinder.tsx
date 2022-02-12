@@ -8,8 +8,10 @@ import { InfoBar } from './components/InfoBar';
 import { SelectOption } from './components/SelectOption';
 import { StatusBar } from './components/StatusBar';
 import { TitleBar } from './components/TitleBar';
-import { Option } from './Option';
-import { subscene } from './utils/subscene';
+import { IOptionRated } from './interfaces/IOptionRated';
+import { SubsceneSource } from './subscene/SubsceneSource';
+
+const subscene = SubsceneSource.create();
 
 interface Props {
   filePath: string;
@@ -18,18 +20,11 @@ interface Props {
   version: string;
 }
 
-export function Subfinder({
-  filePath,
-  isInteractive = false,
-  release,
-  version,
-}: Props): ReactElement {
+export function Subfinder({ filePath, isInteractive = false, release, version }: Props): ReactElement {
   const [error, setError] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState('...');
-  const [mediaOptions, setMediaOptions] = useState<Option[] | undefined>(
-    undefined
-  );
-  const [subOptions, setSubOptions] = useState<Option[] | undefined>(undefined);
+  const [mediaOptions, setMediaOptions] = useState<IOptionRated[] | undefined>(undefined);
+  const [subOptions, setSubOptions] = useState<IOptionRated[] | undefined>(undefined);
 
   const { exit } = useApp();
 
@@ -39,17 +34,15 @@ export function Subfinder({
     }
   });
 
-  async function selectRelease(media: Option): Promise<void> {
+  async function selectRelease(media: IOptionRated): Promise<void> {
     setSubOptions(undefined);
 
     setStatus('Downloading subtitles...');
 
-    const destFile = release.container
-      ? filePath.slice(0, filePath.length - 4) + '.srt'
-      : filePath;
+    const destFile = release.container ? filePath.slice(0, filePath.length - 4) + '.srt' : filePath;
 
     try {
-      await subscene.download(media, destFile);
+      await subscene.downloadSubtitles(media, destFile);
     } catch {
       setError('Error downloading subtitles');
     }
@@ -59,7 +52,7 @@ export function Subfinder({
   }
 
   // when user chooses a search result, eg movie or series
-  async function selectMedia(media: Option): Promise<void> {
+  async function selectMedia(media: IOptionRated): Promise<void> {
     if (isInteractive) {
       setMediaOptions(undefined);
     }
@@ -85,7 +78,7 @@ export function Subfinder({
       setStatus('Searching subscene...');
 
       try {
-        const mediaOptions = await subscene.getMediaOptions(release);
+        const mediaOptions = await subscene.searchMediaOptions(release);
 
         if (isInteractive) {
           setMediaOptions(mediaOptions);
@@ -111,10 +104,7 @@ export function Subfinder({
     return (
       <>
         <TitleBar version={version} />
-        <InfoBar
-          fileName={path.basename(filePath)}
-          isInteractive={isInteractive}
-        />
+        <InfoBar fileName={path.basename(filePath)} isInteractive={isInteractive} />
         <ErrorMessage error={error} />
       </>
     );
@@ -123,17 +113,10 @@ export function Subfinder({
   return (
     <>
       <TitleBar version={version} />
-      <InfoBar
-        fileName={path.basename(filePath)}
-        isInteractive={isInteractive}
-      />
+      <InfoBar fileName={path.basename(filePath)} isInteractive={isInteractive} />
       <StatusBar status={status} />
-      {mediaOptions && (
-        <SelectOption onSelect={selectMedia} options={mediaOptions} />
-      )}
-      {subOptions && (
-        <SelectOption onSelect={selectRelease} options={subOptions} />
-      )}
+      {mediaOptions && <SelectOption onSelect={selectMedia} options={mediaOptions} />}
+      {subOptions && <SelectOption onSelect={selectRelease} options={subOptions} />}
     </>
   );
 }
