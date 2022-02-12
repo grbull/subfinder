@@ -60,7 +60,7 @@ export function Subfinder({ filePath, isInteractive = false, release, version }:
     setStatus('Fetching subtitle releases for selected media...');
 
     try {
-      const subtitleOptions = await subscene.getSubtitleOptions(media, release);
+      const subtitleOptions = await subscene.getMediaSubtitleOptions(media, release);
 
       if (isInteractive) {
         setSubOptions(subtitleOptions);
