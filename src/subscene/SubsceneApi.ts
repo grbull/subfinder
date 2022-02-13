@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 
 import { ISubsceneApi } from '../interfaces/ISubsceneApi';
 
-export class SubSceneApi implements ISubsceneApi {
+export class SubsceneApi implements ISubsceneApi {
   private readonly _axios: AxiosInstance;
 
   constructor(axios: AxiosInstance) {

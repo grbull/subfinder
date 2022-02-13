@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import { SubSceneApi } from '../SubsceneApi';
+import { SubsceneApi } from '../SubsceneApi';
 
 describe('SubsceneApi', () => {
   describe('fetchSearchPage', () => {
@@ -10,7 +10,7 @@ describe('SubsceneApi', () => {
       const axiosRequestMock = jest.spyOn(axios, 'request');
       axiosRequestMock.mockImplementation((): Promise<string> => Promise.resolve(''));
       const testQuery = 'test';
-      const sut = new SubSceneApi(axios);
+      const sut = new SubsceneApi(axios);
 
       // Act
       sut.fetchSearchPage(testQuery);
@@ -31,7 +31,7 @@ describe('SubsceneApi', () => {
       const axios = Axios.create();
       const axiosRequestMock = jest.spyOn(axios, 'request');
       axiosRequestMock.mockImplementation((): Promise<string> => Promise.resolve(''));
-      const sut = new SubSceneApi(axios);
+      const sut = new SubsceneApi(axios);
 
       // Act
       sut.fetchPage(testUrl);

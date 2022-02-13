@@ -15,7 +15,7 @@ import { DomSelector } from '../utilities/DomSelector';
 import { FileDownloader } from '../utilities/FileDownloader';
 import { OptionRater } from '../utilities/OptionRater';
 import { OrdinalConverter } from '../utilities/OrdinalConverter';
-import { SubSceneApi } from './SubsceneApi';
+import { SubsceneApi } from './SubsceneApi';
 import { SubsceneFormatter } from './SubsceneFormatter';
 import { SubsceneParser } from './SubsceneParser';
 import { SubsceneUnzipper } from './SubsceneUnzipper';
@@ -50,7 +50,7 @@ export class SubsceneSource implements ISubtitleSource {
   static create(): ISubtitleSource {
     return new SubsceneSource(
       new DomSelector(),
-      new SubSceneApi(axios.create()),
+      new SubsceneApi(axios.create()),
       new SubsceneParser(),
       new FileDownloader(),
       new SubsceneUnzipper(),
