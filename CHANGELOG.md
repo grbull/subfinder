@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/grbull/subfinder/compare/v1.3.0...v1.3.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* usage of commander js ([bd6dc95](https://github.com/grbull/subfinder/commit/bd6dc9588cd18208286954d428d4c4d91c602b79))
+* user agent being blocked and fix missing base urls for subscene ([b2f9080](https://github.com/grbull/subfinder/commit/b2f90803260f754981ec44ae158ee2502c940d58))
+
 ## [1.3.0](https://github.com/grbull/subfinder/compare/v1.2.1...v1.3.0) (2021-08-22)
 
 
