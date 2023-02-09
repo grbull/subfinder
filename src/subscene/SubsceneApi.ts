@@ -20,6 +20,7 @@ export class SubSceneApi implements ISubsceneApi {
       method: 'POST',
       url: 'https://subscene.com/subtitles/searchbytitle',
       data: `query=${query}&l=`,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)' },
     });
     return result.data;
   }
@@ -33,7 +34,8 @@ export class SubSceneApi implements ISubsceneApi {
   public async fetchPage(url: string): Promise<string> {
     const result = await this._axios.request({
       method: 'GET',
-      url: url,
+      url: 'https://subscene.com' + url,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)' },
     });
     return result.data;
   }
