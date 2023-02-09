@@ -50,7 +50,7 @@ export class SubsceneSource implements ISubtitleSource {
   static create(): ISubtitleSource {
     return new SubsceneSource(
       new DomSelector(),
-      new SubSceneApi(axios.create()),
+      new SubSceneApi(axios.create({})),
       new SubsceneParser(),
       new FileDownloader(),
       new SubsceneUnzipper(),
@@ -86,7 +86,7 @@ export class SubsceneSource implements ISubtitleSource {
   public async getMediaSubtitleOptions(mediaOption: IOption, release: WtrResult): Promise<IOptionRated[]> {
     const data = await this._subsceneApi.fetchPage(mediaOption.url);
     const optionElements = this._domSelector.selectMany<HTMLTableDataCellElement>(data, 'table > tbody > tr > td.a1');
-    const options = this._subsceneParser.parseMediaOptions(optionElements);
+    const options = this._subsceneParser.parseMediaSubtitleOptions(optionElements);
     const matchString = this._formatter.formatRelease(release);
     const ratedOptions = this._optionRater.rateManyOptions(options, matchString);
 
@@ -109,10 +109,9 @@ export class SubsceneSource implements ISubtitleSource {
    */
   public async downloadSubtitles(subtitleOption: IOption, destinationPath: string): Promise<void> {
     const data = await this._subsceneApi.fetchPage(subtitleOption.url);
-    const downloadUrl = this._domSelector.selectOne<HTMLAnchorElement>(
-      data,
-      'div.download >  a#downloadButton.button'
-    ).href;
+    const downloadUrl =
+      'https://subscene.com' +
+      this._domSelector.selectOne<HTMLAnchorElement>(data, 'div.download >  a#downloadButton.button').href;
     // TODO: Validate URL
     const zipFile = `/tmp/subfinder-${Date.now()}.zip`;
     await this._fileDownloader.downloadFile(downloadUrl, zipFile);
